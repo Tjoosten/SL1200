@@ -20,7 +20,7 @@ class Comments extends Controller
      */
     public function __construct()
     {
-
+        $this->middleware('auth');
     }
 
     /**
@@ -42,9 +42,10 @@ class Comments extends Controller
     /**
      * Report a comment.
      *
+     * @param  ReportValidation $input
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function report()
+    public function report(ReportValidation $input)
     {
         return back();
     }

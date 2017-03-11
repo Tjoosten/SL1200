@@ -22,9 +22,16 @@ class Account extends Controller
 
     }
 
+    /**
+     * Get the account information index.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
+        $data['title'] = trans('account.title-index');
 
+        return view('', $data);
     }
 
     /**
@@ -34,15 +41,26 @@ class Account extends Controller
      */
     public function close()
     {
-        return view();
+        $data['title'] = trans('account.title-delete');
+
+        return view('', $data);
     }
 
     /**
      * Confirm the account closing.
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function confirmClose()
     {
+        if (User::find(auth()->user()->id)->delete()) { // Account >>> Deleted.
+            auth()->logout();
 
+            session()->flash('class', 'alert-success');
+            session()->flash('message', trans('account.delete'));
+        }
+
+        return back();
     }
 
     /**
