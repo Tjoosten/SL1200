@@ -43,7 +43,7 @@
                     <div class="collapse navbar-collapse" id="app-navbar-collapse">
                         {{-- Left Side Of Navbar --}}
                         <ul class="nav navbar-nav">
-                            <li><a href="{{ route('petition.start') }}"> @lang('navbar.start-petition') </a></li>
+                            <li><a href="{{ route('petition.start') }}"><span class="" aria-hidden="true"> @lang('navbar.start-petition') </a></li>
                             <li><a href="{{ route('petition.browse') }}"> @lang('navbar.petition-browse') </a></li>
                             <li><a href="{{ route('petition.search') }}"> @lang('navbar.petition-search') </a></li>
                         </ul>
@@ -58,12 +58,12 @@
                                         <li>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    Login via
+                                                    @lang('navbar.login-via')
                                                     <div class="social-buttons">
                                                         <a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> @lang('navbar.brand-facebook') </a>
                                                         <a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> @lang('navbar.brand-twitter') </a>
                                                     </div>
-                                                    or
+                                                    @lang('navbar.login-or')
                                                     <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
                                                         <div class="form-group">
                                                             <label class="sr-only" for="exampleInputEmail2"> @lang('navbar.auth-email') </label>

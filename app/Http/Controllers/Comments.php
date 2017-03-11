@@ -58,10 +58,14 @@ class Comments extends Controller
      */
     public function delete($id)
     {
-        if (Comment::find($id)->delete()) { // Comment >>> deleted
-            session()->flash('class', 'alert-success');
-            session()->flash('message', trans('comment.delete'));
-        }
+		$db['comment'] = Comment::find($id)
+
+        if ((int) auth()->user()->id === (int) $db['comment']->creator_id) {
+			if ($db['comment']->delete()) { // Comment >>> deleted
+				session()->flash('class', 'alert-success');
+				session()->flash('message', trans('comment.delete'));
+			}
+		}
 
         return back();
     }

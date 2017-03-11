@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Manifest;
 use Illuminate\Http\Request;
 
 class Petitions extends Controller
@@ -13,22 +14,53 @@ class Petitions extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->only()
+        $this->middleware('auth')->only();
     }
 
     /**
      * Create view for a new petition.
      *
-     * @return 
+     * @return
      */
     public function create()
     {
-
+		$data['title'] = trans('petition.title-create');
+		return view();
     }
 
-    public function store(PetitionValidation $input, $id)
-    {
+    /**
+     * Index method for the petition. Here can user browse through petitions.
+     *
+     * @return
+     */
+	public function browse(Request $request)
+	{
+        $data['title'] = trans();
 
+        return view('', $data);
+	}
+
+    /**
+     *
+     *
+     */
+    public function searchView()
+    {
+        $data['title'] = trans();
+
+        return view('', $data);
+    }
+
+    /**
+     * Store a new petition in the system.
+     *
+     * @param
+     * @param
+     * @return
+     */
+    public function store(PetitionValidation $input, $petitionId)
+    {
+        return back();
     }
 
     /**
@@ -37,20 +69,31 @@ class Petitions extends Controller
      * @param
      * @return
      */
-    public function edit($id)
+    public function edit($petitionId)
     {
+		$data['title'] = trans();
         return view();
     }
 
     /**
-     *
-     * @param
-     * @param
-     * @return
+     * Update a petition in the system.
+	 *
+     * @param  int					$petitionId  The petition database id.
+     * @param  PetitionValidation   $input       The user input.
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(PetitionValidation $input, $id)
+    public function update(PetitionValidation $input, $petitionId)
     {
+		$db['petition'] = Manifest::find($petitionId);
 
+		if ((int) auth()->user()->id === $db['petition']->creator_id) { // Authencated user >>> creator.
+			if ($db['petition']->update($input->except('_token'))) {
+				session()->flash('class', 'alert-success');
+				session()->flash('message', trans('petition.update'));
+			}
+		}
+
+		return back();
     }
 
     /**

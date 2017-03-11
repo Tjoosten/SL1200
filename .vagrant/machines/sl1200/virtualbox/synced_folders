@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/vagrant/Code/sl1200":{"type":null,"mount_options":[],"guestpath":"/home/vagrant/Code/sl1200","hostpath":"C:/Users/Gebruiker/Desktop/SL1200","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"C:/Users/Gebruiker/Desktop/SL1200","disabled":false,"__vagrantfile":true}}}
