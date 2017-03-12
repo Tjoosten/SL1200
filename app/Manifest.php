@@ -11,7 +11,7 @@ class Manifest extends Model
 	 *
 	 * @return array
 	 */
-    protected $fillable = [];
+    protected $fillable = ['title', 'description'];
 
     /**
 	 * Get the user information for the petition creator. 

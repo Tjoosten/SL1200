@@ -62,8 +62,8 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-sm btn-success">Register</button>
-                                <button type="reset" class="btn btn-sm btn-danger">Reset</button>
+                                <button type="submit" class="btn btn-sm btn-success"><span class="fa fa-check" aria-hidden="true"></span> Register</button>
+                                <button type="reset" class="btn btn-sm btn-danger"><span class="fa fa-undo" aria-hidden="true"></span> Reset</button>
                             </div>
                         </div>
                     </form>
