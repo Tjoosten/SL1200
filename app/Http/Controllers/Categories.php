@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
 
 class Categories extends Controller
@@ -24,7 +25,7 @@ class Categories extends Controller
      */
     public function show($selector)
     {
-        $data['title'] = trans('', ['category' => $selector])
+        $data['title'] = trans('', ['name' => $selector]);
 
         return view('', $data);
     }
