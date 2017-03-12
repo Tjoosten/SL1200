@@ -113,15 +113,15 @@
                                     </a>
 
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="{{ route('profile') }}"> @lang('navbar.profile') </a></li>
-                                        <li><a href="{{ route('profile.settings') }}"> @lang('navbar.account-settings') </a></li>
-                                        <li><a href="{{ route('profile.petitions') }}"> @lang('navbar.user-petitions') </a></li>
+                                        <li><a href="{{ route('profile') }}"><span class="fa fa-users" aria-hidden="true"></span> @lang('navbar.profile') </a></li>
+                                        <li><a href="{{ route('profile.settings') }}"><span class="fa fa-wrench" aria-hidden="true"></span> @lang('navbar.account-settings') </a></li>
+                                        <li><a href="{{ route('profile.petitions') }}"><span class="fa fa-list" aria-hidden="true"></span> @lang('navbar.user-petitions') </a></li>
                                         <li class="divider"></li>
                                         <li>
                                             <a href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
-                                                @lang('navbar.logout')
+                                                <span class="fa fa-sign-out" aria-hidden="true"></span> @lang('navbar.logout')
                                             </a>
 
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
