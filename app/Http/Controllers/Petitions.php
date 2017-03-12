@@ -122,7 +122,7 @@ class Petitions extends Controller
      */
     public function show($petitionId)
     {
-        $data['petition'] = Manifest::find($petitionId);
+        $data['petition'] = Manifest::with(['author', 'categories', 'comments'])->find($petitionId);
 
         if (! $data['petition'] == null) {
             $data['title'] = trans('petition.title-show', ['petition-name' => $data['petition']->title]);

@@ -20,11 +20,18 @@ class Manifest extends Model
      */
 	public function author() 
 	{
-		return $this->belongsTo();
+		return $this->belongsTo(User::class);
 	}
 
+    /**
+     * Display the categories for a petition.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
 	public function categories() 
 	{
+	    return $this->belongsToMany(Category::class)
+            ->withTimestamps();
 	}
 
     /**
@@ -34,7 +41,7 @@ class Manifest extends Model
      */
 	public function comments() 
 	{
-		return $this->belongsToMany()
-			->withTimstamps(); 
+		return $this->belongsToMany(Comment::class)
+			->withTimestamps();
 	}
 }

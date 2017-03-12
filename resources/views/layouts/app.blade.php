@@ -47,6 +47,7 @@
                             <li><a href="{{ route('petition.start') }}"><span class="fa fa-plus" aria-hidden="true"></span> @lang('navbar.start-petition') </a></li>
                             <li><a href="{{ route('petition.browse') }}"><span class="fa fa-list" aria-hidden="true"></span> @lang('navbar.petition-browse') </a></li>
                             <li><a href="{{ route('petition.search') }}"><span class="fa fa-search" aria-hidden="true"></span> @lang('navbar.petition-search') </a></li>
+                            <li><a href=""><span class="fa fa-flag"></span> Language: English</a></li>
                         </ul>
 
                         {{-- Right Side Of Navbar --}}
