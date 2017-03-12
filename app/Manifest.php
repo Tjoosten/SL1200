@@ -14,13 +14,13 @@ class Manifest extends Model
     protected $fillable = ['title', 'description'];
 
     /**
-	 * Get the user information for the petition creator. 
+	 * Get the user information for the petition creator.
 	 *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-	public function author() 
+	public function author()
 	{
-		return $this->belongsTo(User::class);
+		return $this->belongsTo(User::class, 'user_id');
 	}
 
     /**
@@ -28,18 +28,18 @@ class Manifest extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-	public function categories() 
+	public function categories()
 	{
 	    return $this->belongsToMany(Category::class)
             ->withTimestamps();
 	}
 
     /**
-	 * Comments relation for the petition. 
+	 * Comments relation for the petition.
 	 *
      * @return mixed
      */
-	public function comments() 
+	public function comments()
 	{
 		return $this->belongsToMany(Comment::class)
 			->withTimestamps();

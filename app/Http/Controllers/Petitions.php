@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Manifest;
 use App\Http\Requests\PetitionValidation;
 use Illuminate\Http\Request;
@@ -37,8 +38,8 @@ class Petitions extends Controller
 	public function browse()
 	{
         $data['title'] = trans();
-		$data['petitions'] = Manifest::paginate(7);
-		$data['recent']    = '';
+		$data['petitions']  = Manifest::paginate(5);
+		$data['categories'] = Category::orderByRaw("RAND()")->take(15)->get();
 
         return view('petitions.index', $data);
 	}
@@ -122,7 +123,8 @@ class Petitions extends Controller
      */
     public function show($petitionId)
     {
-        $data['petition'] = Manifest::with(['author', 'categories', 'comments'])->find($petitionId);
+        $data['comments'] = Manifest::find($petitionId)->comments()->paginate(7);
+        $data['petition'] = Manifest::with(['author', 'categories'])->find($petitionId);
 
         if (! $data['petition'] == null) {
             $data['title'] = trans('petition.title-show', ['petition-name' => $data['petition']->title]);
@@ -168,6 +170,11 @@ class Petitions extends Controller
         session()->flash('message', $message);
 
         return back();
+    }
+
+    public function user()
+    {
+
     }
 
     /**

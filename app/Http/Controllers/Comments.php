@@ -58,7 +58,7 @@ class Comments extends Controller
      */
     public function delete($id)
     {
-		$db['comment'] = Comment::find($id)
+		$db['comment'] = Comment::find($id);
 
         if ((int) auth()->user()->id === (int) $db['comment']->creator_id) {
 			if ($db['comment']->delete()) { // Comment >>> deleted

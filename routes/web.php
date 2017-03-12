@@ -20,4 +20,8 @@ Route::get('/petition/browse', 'Petitions@browse')->name('petition.browse');
 Route::get('/petition/search', 'Petitions@search')->name('petition.search');
 Route::get('/petition/show/{id}', 'Petitions@show')->name('petition.show');
 
+Route::get('/account', 'Account@index')->name('profile');
+Route::get('/account/settings', 'Account@accountSettings')->name('profile.settings');
+Route::get('/account/petitions', 'Petitions@user')->name('profile.petitions');
+
 Route::get('/home', 'HomeController@index');
