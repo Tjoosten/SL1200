@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4c5211fdfd48a10f353568476be6d5a4",
-    "content-hash": "fa6457600e444fd7c3a6382227e0cd4e",
+    "hash": "260c53d068b160283f92d92ba4c9e680",
+    "content-hash": "5d3e9da36c2e6586afbece8440017215",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2359,29 +2359,25 @@
         },
         {
             "name": "laravel/homestead",
-            "version": "v5.0.1",
+            "version": "v4.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/homestead.git",
-                "reference": "af6ba5202e8c3e1f377fd748cbe7a7d8c1ba4d22"
+                "reference": "a1bcbde2462d8ac1fa608cd6f00b46623aabd705"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/homestead/zipball/af6ba5202e8c3e1f377fd748cbe7a7d8c1ba4d22",
-                "reference": "af6ba5202e8c3e1f377fd748cbe7a7d8c1ba4d22",
+                "url": "https://api.github.com/repos/laravel/homestead/zipball/a1bcbde2462d8ac1fa608cd6f00b46623aabd705",
+                "reference": "a1bcbde2462d8ac1fa608cd6f00b46623aabd705",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6 || ^7.0",
+                "php": ">=5.5.9",
                 "symfony/console": "~2.3|~3.0",
-                "symfony/process": "~2.3|~3.0",
-                "symfony/yaml": "~2.3|~3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.7 || ^6.0"
+                "symfony/process": "~2.3|~3.0"
             },
             "bin": [
-                "bin/homestead"
+                "homestead"
             ],
             "type": "library",
             "extra": {
@@ -2405,7 +2401,7 @@
                 }
             ],
             "description": "A virtual machine for web artisans.",
-            "time": "2017-02-28 13:26:35"
+            "time": "2017-02-07 19:06:26"
         },
         {
             "name": "mockery/mockery",

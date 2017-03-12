@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 return [
     'start-petition'  => 'New petition',
-    'petition-browse' => 'Brows petitions',
+    'petition-browse' => 'Browse petitions',
     'petition-search' => 'Search petition',
 
     'login-via' => 'Login via',
@@ -10,4 +10,10 @@ return [
 
     'brand-twitter'  => 'Twitter',
     'brand-facebook' => 'Facebook',
+
+    'keep-logged-in' => 'Remind me',
+    'forgot-password' => 'Lost password?',
+
+    'auth-new' => 'Need an account?', 
+    'auth-register' => 'Register.',
 ];

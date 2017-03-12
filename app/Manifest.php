@@ -23,6 +23,10 @@ class Manifest extends Model
 		return $this->belongsTo();
 	}
 
+	public function categories() 
+	{
+	}
+
     /**
 	 * Comments relation for the petition. 
 	 *

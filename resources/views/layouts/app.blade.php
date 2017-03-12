@@ -11,6 +11,7 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         {{-- Styles --}}
+        <script src="https://use.fontawesome.com/2ae53ff47d.js"></script>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
         {{-- Scripts --}}
@@ -22,7 +23,7 @@
     </head>
     <body>
         <div id="app">
-            <nav class="navbar navbar-default navbar-static-top">
+            <nav class="navbar navbar-inverse navbar-static-top">
                 <div class="container">
                     <div class="navbar-header">
 
@@ -43,9 +44,9 @@
                     <div class="collapse navbar-collapse" id="app-navbar-collapse">
                         {{-- Left Side Of Navbar --}}
                         <ul class="nav navbar-nav">
-                            <li><a href="{{ route('petition.start') }}"><span class="" aria-hidden="true"> @lang('navbar.start-petition') </a></li>
-                            <li><a href="{{ route('petition.browse') }}"> @lang('navbar.petition-browse') </a></li>
-                            <li><a href="{{ route('petition.search') }}"> @lang('navbar.petition-search') </a></li>
+                            <li><a href="{{ route('petition.start') }}"><span class="fa fa-plus" aria-hidden="true"></span> @lang('navbar.start-petition') </a></li>
+                            <li><a href="{{ route('petition.browse') }}"><span class="fa fa-list" aria-hidden="true"></span> @lang('navbar.petition-browse') </a></li>
+                            <li><a href="{{ route('petition.search') }}"><span class="fa fa-search" aria-hidden="true"></span> @lang('navbar.petition-search') </a></li>
                         </ul>
 
                         {{-- Right Side Of Navbar --}}
@@ -53,18 +54,19 @@
                             {{-- Authentication Links --}}
                             @if (Auth::guest())
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-sign-in" aria-hidden="true"></span> Login</a>
                                     <ul id="login-dp" class="dropdown-menu">
                                         <li>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     @lang('navbar.login-via')
                                                     <div class="social-buttons">
-                                                        <a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> @lang('navbar.brand-facebook') </a>
-                                                        <a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> @lang('navbar.brand-twitter') </a>
+                                                        <a href="{{ route('auth.social', ['provider' => 'facebook']) }}" class="btn btn-fb"><i class="fa fa-facebook"></i> @lang('navbar.brand-facebook') </a>
+                                                        <a href="{{ route('auth.social', ['provider' => 'twitter']) }}" class="btn btn-tw"><i class="fa fa-twitter"></i> @lang('navbar.brand-twitter') </a>
                                                     </div>
                                                     @lang('navbar.login-or')
-                                                    <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                                                    <form class="form" role="form" method="post" action="{{ url('login') }}" accept-charset="UTF-8" id="login-nav">
+                                                        {{ csrf_field() }}
                                                         <div class="form-group">
                                                             <label class="sr-only" for="exampleInputEmail2"> @lang('navbar.auth-email') </label>
                                                             <input type="email" class="form-control" id="exampleInputEmail2" placeholder="@lang('navbar.placeholder-email')" required>
@@ -72,18 +74,18 @@
                                                         <div class="form-group">
                                                             <label class="sr-only" for="exampleInputPassword2">@lang('navbar.auth-password')</label>
                                                             <input type="password" class="form-control" id="exampleInputPassword2" placeholder="@lang('navbar.placeholder-password')" required>
-                                                            <div class="help-block text-right"><a href=""> @lang('auth.forgot-password')</a></div>
+                                                            <div class="help-block text-right"><a href=""> @lang('navbar.forgot-password')</a></div>
                                                         </div>
                                                         <div class="form-group">
                                                             <button type="submit" class="btn btn-primary btn-block"> @lang('auth.sign-in') </button>
                                                         </div>
                                                         <div class="checkbox">
-                                                            <label><input type="checkbox"> @lang('navbar.auth-keep-logged-in') </label>
+                                                            <label><input type="checkbox"> @lang('navbar.keep-logged-in') </label>
                                                         </div>
                                                     </form>
                                                 </div>
                                                 <div class="bottom text-center">
-                                                    @lang('navbar.auth-new') <a href="#"><b>@lang('navbar.auth-register')</b></a>
+                                                    @lang('navbar.auth-new') <a href="{{ route('register') }}"><b> @lang('navbar.auth-register') </b></a>
                                                 </div>
                                             </div>
                                         </li>

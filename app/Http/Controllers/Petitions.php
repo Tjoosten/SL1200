@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Manifest;
+use App\Http\Requests\PetitionValidation;
 use Illuminate\Http\Request;
 
 class Petitions extends Controller
@@ -14,7 +15,7 @@ class Petitions extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->only();
+        // $this->middleware('auth')->only();
     }
 
     /**
@@ -25,7 +26,7 @@ class Petitions extends Controller
     public function create()
     {
 		$data['title'] = trans('petition.title-create');
-		return view();
+		return view('petitions.create', $data);
     }
 
     /**
@@ -33,16 +34,19 @@ class Petitions extends Controller
      *
      * @return
      */
-	public function browse(Request $request)
+	public function browse()
 	{
         $data['title'] = trans();
+		$data['petitions'] = Manifest::paginate(7);
+		$data['recent']    = '';
 
-        return view('', $data);
+        return view('petitions.index', $data);
 	}
 
     /**
-     *
-     *
+     * The search view for the petitions.
+	 *
+     * @return
      */
     public function searchView()
     {
@@ -52,27 +56,41 @@ class Petitions extends Controller
     }
 
     /**
-     * Store a new petition in the system.
-     *
-     * @param
-     * @param
-     * @return
+	 * Store a new petition in the system.
+	 *
+	 * @param  PetitionValidation $input  The user input.
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(PetitionValidation $input, $petitionId)
+    public function store(PetitionValidation $input)
     {
+        $db['petition']   = Manifest::created($input->except(['_token', 'category']));
+        $db['category']   = Category::findOrCreate($input->get('category'));
+        $db['categories'] = Manifest::find($db['petition']->id)->categories()->sync($db['category']->id);
+
+        if ($db['petition'] && $db['categories'] && $db['category']) {
+            // Petition create         >>> OK
+            // Create of find category >>> OK
+            // Set petition categories >>> OK
+
+            session()->flash('class', 'alert-success');
+            session()->flash('message', trans('petition.create'));
+        }
+
         return back();
     }
 
     /**
      * Edit a petition in the system.
      *
-     * @param
+     * @param int $petitionId The petition id in the database.
      * @return
      */
     public function edit($petitionId)
     {
-		$data['title'] = trans();
-        return view();
+		$data['petition'] = Manifest::find($petitionId);
+		$data['title']    = trans();
+
+        return view('petition.edit', $data);
     }
 
     /**
@@ -99,15 +117,20 @@ class Petitions extends Controller
     /**
      * Show a specific petition in the system.
      *
-     * @param
+     * @param  int $petitionId The petition id in the database.
      * @return
      */
-    public function show($id)
+    public function show($petitionId)
     {
-        $data['petition'] = Manifest::find($id);
-        $data['title']    = trans('petition.title-show', ['petition-name' => $data['petition']->title]);
+        $data['petition'] = Manifest::find($petitionId);
 
-        return view();
+        if (! $data['petition'] == null) {
+            $data['title'] = trans('petition.title-show', ['petition-name' => $data['petition']->title]);
+
+            return view('petitions.show', $data);
+        }
+
+        app()->abort(404);
     }
 
     /**

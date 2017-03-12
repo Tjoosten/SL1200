@@ -62,14 +62,19 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
+                                <button type="submit" class="btn btn-sm btn-success">Register</button>
+                                <button type="reset" class="btn btn-sm btn-danger">Reset</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
+
+            <small>
+                <span class="text-muted">
+                    Door je te registreren, ga je akkoord met de algemene voorwaarden en het privacybeleid, inclusief het cookiebeleid.
+                </span>
+            </small>
         </div>
     </div>
 </div>

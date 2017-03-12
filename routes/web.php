@@ -18,5 +18,6 @@ Route::get('auth/{provider}/callback', 'Auth\SocialAuthencation@handleProviderCa
 Route::get('/petition/new', 'Petitions@create')->name('petition.start');
 Route::get('/petition/browse', 'Petitions@browse')->name('petition.browse');
 Route::get('/petition/search', 'Petitions@search')->name('petition.search');
+Route::get('/petition/show/{id}', 'Petitions@show')->name('petition.show');
 
 Route::get('/home', 'HomeController@index');

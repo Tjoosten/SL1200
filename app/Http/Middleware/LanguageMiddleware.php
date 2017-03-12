@@ -37,14 +37,14 @@ class LanguageMiddleware
      */
     private function isLanguageSupported($lang)
     {
-        return in_aray($lang, self::$supportedLanguages);
+        return in_array($lang, self::$supportedLanguages);
     }
 
     /**
      * @param  string $lang
      * @return void
      */
-    private function setSupportedLanguage()
+    private function setSupportedLanguage($lang)
     {
         if ($this->isLanguageSupported($lang)) {
             App::setLocale($lang);
