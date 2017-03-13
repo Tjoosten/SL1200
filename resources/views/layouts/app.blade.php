@@ -14,6 +14,9 @@
         <script src="https://use.fontawesome.com/2ae53ff47d.js"></script>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+        {{-- Additional css assets --}}
+        @yield('extra-css')
+
         {{-- Scripts --}}
         <script>
             window.Laravel = {!! json_encode([
@@ -44,7 +47,6 @@
                     <div class="collapse navbar-collapse" id="app-navbar-collapse">
                         {{-- Left Side Of Navbar --}}
                         <ul class="nav navbar-nav">
-                            <li><a href="{{ route('petition.start') }}"><span class="fa fa-plus" aria-hidden="true"></span> @lang('navbar.start-petition') </a></li>
                             <li><a href="{{ route('petition.browse') }}"><span class="fa fa-list" aria-hidden="true"></span> @lang('navbar.petition-browse') </a></li>
                             <li><a href="{{ route('petition.search') }}"><span class="fa fa-search" aria-hidden="true"></span> @lang('navbar.petition-search') </a></li>
                             <li class="dropdown">
@@ -60,6 +62,18 @@
 
                         {{-- Right Side Of Navbar --}}
                         <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="fa fa-plus" aria-hidden="true"></span>
+                                    <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ route('petition.start') }}">New petition</a></li>
+                                    <li><a href="{{ route('org.create') }}">New organization</a></li>
+                                </ul>
+                            </li>
+
                             {{-- Authentication Links --}}
                             @if (Auth::guest())
                                 <li class="dropdown">
@@ -78,11 +92,11 @@
                                                         {{ csrf_field() }}
                                                         <div class="form-group">
                                                             <label class="sr-only" for="exampleInputEmail2"> @lang('navbar.auth-email') </label>
-                                                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="@lang('navbar.placeholder-email')" required>
+                                                            <input type="email" name="email" class="form-control" id="exampleInputEmail2" placeholder="@lang('navbar.placeholder-email')" required>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="sr-only" for="exampleInputPassword2">@lang('navbar.auth-password')</label>
-                                                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="@lang('navbar.placeholder-password')" required>
+                                                            <input type="password" name="password" class="form-control" id="exampleInputPassword2" placeholder="@lang('navbar.placeholder-password')" required>
                                                             <div class="help-block text-right"><a href=""> @lang('navbar.forgot-password')</a></div>
                                                         </div>
                                                         <div class="form-group">
@@ -143,5 +157,8 @@
 
         {{-- Scripts --}}
         <script src="{{ asset('js/app.js') }}"></script>
+
+        {{-- Additional javascript assets --}}
+        @yield('extra-js')
     </body>
 </html>

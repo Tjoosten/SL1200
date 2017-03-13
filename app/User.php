@@ -5,6 +5,7 @@ namespace App;
 use Cog\Ban\Traits\HasBans;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Cache;
 
 class User extends Authenticatable
 {
@@ -23,4 +24,25 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    /**
+     * The Organizatio)ns where the user is in.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function organizations()
+    {
+        return $this->belongsToMany(Organization::class)
+            ->withTimestamps();
+    }
+
+    /**
+     * The status cache for the user.
+     *
+     * @return mixed
+     */
+    public function isOnline()
+    {
+        return Cache::has('user-is-online-' . $this->id);
+    }
 }

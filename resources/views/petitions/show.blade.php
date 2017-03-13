@@ -7,6 +7,18 @@
         </div>
     </div>
 
+    @if (! Auth::check())
+        <div class="row row-padding">
+            <div class="col-md-12">
+                <div class="alert alert-info alert-dismissable" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong><span class="fa fa-info-circle" aria-hidden="true"></span> Info:</strong>
+                    If you sign this petition an user account will be created.
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="row row-padding">
         <div class="col-md-9">
             <div class="panel panel-default">
@@ -86,35 +98,28 @@
             {{-- /Comment listing --}}
 
             {{-- Comment box --}}
-                @if (! auth()->check())
-                    <div class="alert alert-info" role="alert">
-                        <strong><span class="fa fa-info-circle" aria-hidden="true"></span> Info:</strong>
-                        You need to be logged in. To comment on this petition.
+                <form class="form-horizontal" action="" method="post">
+                    {{ csrf_field() }} {{-- CSRF FIELD --}}
+                    <input type="hidden" name="user_id" value="@if (auth()->check()) {{ auth()->user()->id }} @endif">
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <textarea @if (auth()->guest()) disabled @endif name="comment" class="form-control" rows="7" placeholder="@if (auth()->guest())You need to login for a comment @else Your reaction @endif"></textarea>
+                        </div>
                     </div>
-                @else
-                    <form class="form-horizontal" action="" method="post">
-                        {{ csrf_field() }} {{-- CSRF FIELD --}}
-                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
 
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <textarea name="comment" class="form-control" rows="7" placeholder="your reaction"></textarea>
-                            </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button @if (auth()->guest()) disabled @endif type="submit" class="btn btn-sm btn-success">
+                                <span class="fa fa-check" aria-hidden="true"></span> Comment
+                            </button>
+
+                            <button @if (auth()->guest()) disabled @endif type="reset" class="btn btn-sm btn-danger">
+                                <span class="fa fa-undo"></span> Reset
+                            </button>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <button type="submit" class="btn btn-sm btn-success">
-                                    <span class="fa fa-check" aria-hidden="true"></span> Comment
-                                </button>
-
-                                <button type="reset" class="btn btn-sm btn-danger">
-                                    <span class="fa fa-undo"></span> Reset
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                @endif
+                    </div>
+                </form>
             {{-- /Comment box --}}
         </div>
 

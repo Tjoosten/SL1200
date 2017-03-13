@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AccountValidation;
+use App\User;
 use Illuminate\Http\Request;
 
 /**
@@ -23,6 +24,14 @@ class Account extends Controller
         $this->middleware('forbid-banned-user')->except(['store']);
     }
 
+    public function user($userId)
+    {
+        $data['user'] = User::with(['organizations'])->find($userId);
+        $data['title'] = $data['user']->name;
+
+        return view('account.profile-client', $data);
+    }
+
     /**
      * Get the account information index.
      *
@@ -32,7 +41,7 @@ class Account extends Controller
     {
         $data['title'] = trans('account.title-index');
 
-        return view('', $data);
+        return view('account.profile', $data);
     }
 
     /**
