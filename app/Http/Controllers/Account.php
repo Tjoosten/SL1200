@@ -24,6 +24,12 @@ class Account extends Controller
         $this->middleware('forbid-banned-user')->except(['store']);
     }
 
+    /**
+     * Get the profile for the given user.
+     *
+     * @param  int $userId The user id in the database.
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function user($userId)
     {
         $data['user'] = User::with(['organizations', 'followers'])->find($userId);
@@ -40,7 +46,6 @@ class Account extends Controller
     public function index()
     {
         $data['title'] = trans('account.title-index');
-
         return view('account.profile', $data);
     }
 

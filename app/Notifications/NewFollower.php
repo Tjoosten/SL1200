@@ -49,8 +49,8 @@ class NewFollower extends Notification implements ShouldQueue
     {
         return [
             'url'     => '',
-            'icon'    => 'fa fa-follow',
-            'message' => '',
+            'icon'    => 'fa fa-user-plus',
+            'message' => $this->data->name . ' follows u.',
         ];
     }
 }

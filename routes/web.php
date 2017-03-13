@@ -37,3 +37,7 @@ Route::post('/organization/save', 'Organizations@store')->name('org.store');
 
 Route::get('/social/follow/{id}', 'Social@follow')->name('social.follow');
 Route::get('/social/unfollow/{id}', 'Social@unfollow')->name('social.unfollow');
+
+Route::get('/notifications', 'Notifications@index')->name('account.notifications');
+Route::get('/notifications/read/{notificationId}', 'Notifications@markOne')->name('notifications.mark');
+Route::get('/notifications/read/all', 'Notifications@markAll')->name('notifications.read');

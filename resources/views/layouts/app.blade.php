@@ -62,20 +62,21 @@
 
                         {{-- Right Side Of Navbar --}}
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <span class="fa fa-plus" aria-hidden="true"></span>
-                                    <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ route('petition.start') }}">New petition</a></li>
-                                    <li><a href="{{ route('org.create') }}">New organization</a></li>
-                                </ul>
-                            </li>
 
                             {{-- Authentication Links --}}
                             @if (Auth::guest())
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="fa fa-plus" aria-hidden="true"></span>
+                                        <span class="caret"></span>
+                                    </a>
+
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ route('petition.start') }}">New petition</a></li>
+                                        <li><a href="{{ route('org.create') }}">New organization</a></li>
+                                    </ul>
+                                </li>
+
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-sign-in" aria-hidden="true"></span> Login</a>
                                     <ul id="login-dp" class="dropdown-menu">
@@ -116,9 +117,12 @@
                                 </li>
                             @else
                                 <li>
-                                    <a href="">
+                                    <a href="{{ route('account.notifications') }}">
                                         <span class="fa fa-bell-o" aria-hidden="true"></span>
-                                        <span class="badge">0</span>
+
+                                        @if ((int) count(auth()->user()->unreadNotifications) > 0)
+                                            <span class="badge">{{ count(auth()->user()->unreadNotifications) }}</span>
+                                        @endif
                                     </a>
                                 </li>
                                 <li class="dropdown">
@@ -156,7 +160,9 @@
         </div>
 
         {{-- Scripts --}}
-        <script src="{{ asset('js/app.js') }}"></script>
+        {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         {{-- Additional javascript assets --}}
         @yield('extra-js')
