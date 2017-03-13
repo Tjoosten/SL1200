@@ -171,6 +171,8 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Cog\Ban\Providers\BanServiceProvider::class,
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
+        GrahamCampbell\Markdown\MarkdownServiceProvider::class,
+        AltThree\Emoji\EmojiServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -231,7 +233,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
-        'Gravatar' => Thomaswelton\LaravelGravatar\Facades\Gravatar::class
+        'Gravatar' => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
+        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class
     ],
 
 ];

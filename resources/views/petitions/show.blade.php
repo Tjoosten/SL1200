@@ -85,7 +85,16 @@
                                     </span>
                                 </h4>
 
-                                {{ $comment->comment }}
+                                <style>
+                                    .emoji {
+                                        height: 14px;
+                                        width: 14px;
+                                        vertical-align: middle;
+                                        line-height: 1.6;
+                                    }
+                                </style>
+
+                                {!! Markdown::convertToHtml($comment->comment) !!}
                             </div>
                         </div>
                     </div>
