@@ -14,6 +14,11 @@ return [
     'keep-logged-in' => 'Remind me',
     'forgot-password' => 'Lost password?',
 
+    'profile' => 'My profile',
+    'account-settings' => 'Settings',
+    'user-petitions' => 'My petitions',
+    'logout' => 'Logout',
+
     'auth-new' => 'Need an account?', 
     'auth-register' => 'Register.',
 ];

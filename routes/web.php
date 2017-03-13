@@ -11,7 +11,11 @@
 |
 */
 
+Route::get('/', 'HomeController@index')->name('index');
+Route::get('/disclaimer', 'HomeController@disclaimer')->name('disclaimer');
+
 Auth::routes();
+
 Route::get('auth/{provider}', 'Auth\SocialAuthencation@redirectToProvider')->name('auth.social');
 Route::get('auth/{provider}/callback', 'Auth\SocialAuthencation@handleProviderCallback')->name('auth.social.callback');
 
@@ -20,8 +24,20 @@ Route::get('/petition/browse', 'Petitions@browse')->name('petition.browse');
 Route::get('/petition/search', 'Petitions@search')->name('petition.search');
 Route::get('/petition/show/{id}', 'Petitions@show')->name('petition.show');
 
+Route::get('/account/user/{userId}', 'Account@user')->name('profile.user');
 Route::get('/account', 'Account@index')->name('profile');
 Route::get('/account/settings', 'Account@accountSettings')->name('profile.settings');
 Route::get('/account/petitions', 'Petitions@user')->name('profile.petitions');
 
-Route::get('/home', 'HomeController@index');
+Route::post('/comment', 'Comments@store')->name('comment.store');
+Route::get('/comment/delete/{id}/{petitionId}', 'Comments@delete')->name('comment.delete');
+
+Route::get('/organisation/create', 'Organizations@create')->name('org.create');
+Route::post('/organization/save', 'Organizations@store')->name('org.store');
+
+Route::get('/social/follow/{id}', 'Social@follow')->name('social.follow');
+Route::get('/social/unfollow/{id}', 'Social@unfollow')->name('social.unfollow');
+
+Route::get('/notifications', 'Notifications@index')->name('account.notifications');
+Route::get('/notifications/read/{notificationId}', 'Notifications@markOne')->name('notifications.mark');
+Route::get('/notifications/read/all', 'Notifications@markAll')->name('notifications.read');

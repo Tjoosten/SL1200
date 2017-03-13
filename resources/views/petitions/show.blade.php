@@ -7,6 +7,18 @@
         </div>
     </div>
 
+    @if (! Auth::check())
+        <div class="row row-padding">
+            <div class="col-md-12">
+                <div class="alert alert-info alert-dismissable" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong><span class="fa fa-info-circle" aria-hidden="true"></span> Info:</strong>
+                    If you sign this petition an user account will be created.
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="row row-padding">
         <div class="col-md-9">
             <div class="panel panel-default">
@@ -36,48 +48,47 @@
                     <p style="margin-top: -10px;margin-bottom: -3px;">
                         <i class="fa fa-user" aria-hidden="true"></i> Autheur: <a href="#">{{ $petition->author->name }}</a>
                         | <i class="fa fa-calendar" aria-hidden="true"></i> {{ $petition->created_at }}
-                        | <i class="fa fa-tags" aria-hidden="true"></i> Tags:
-                        <a href="#"><span class="label label-info">test</span></a>
+                        | <i class="fa fa-pencil" aria-hidden="true"></i> 000.000 / <strong>150.000</strong>
                     </p>
                 </div>
             </div>
 
             <hr>
-            {{ $comments->links() }} {{-- Comments pagination --}}
+            {{ $comments->links('petitions.partials.pagination') }} {{-- Comments pagination --}}
 
             {{-- Comment listing --}}
                 @foreach ($comments as $comment)
                     <div class="well well-sm" style="margin-bottom:10px;">
-							<div class="media">
-	  							<div class="media-left">
-	    							<a href="#">
-	      								<img style="width: 64px; height:64px;" class=" img-rounded media-object" src="" alt="...">
-	    							</a>
-	  							</div>
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img style="width: 64px; height:64px;" class=" img-rounded media-object" src="{{ Gravatar::src($comment->author->email) }}" alt="{{ $comment->author->name }}">
+                                </a>
+                            </div>
 
-	  							<div class="media-body">
-	    							<h4 class="media-heading">
-                                        Tim Joosten <small>dd-mm-yyyy 10:10:10</small>
+                            <div class="media-body">
+                                <h4 class="media-heading">
+                                    {{ $comment->author->name }} <small>{{ $comment->created_at }}</small>
 
-                                        @if ($this->user)
-                                            <span class="pull-right">
-												<small>
-    	    									  	<a href="#">
-    	    										   	<small class="text-danger"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Rapporteer</small>
-    	    										</a>
+                                    <span class="pull-right">
+                                        <small>
+                                            <a href="#">
+                                                <small class="text-danger"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Rapporteer</small>
+                                            </a>
 
-                                                    <a href="">
-        	    										<small class="text-danger"><span class="fa fa-close"></span> Verwijder</small>
-        	    									</a>
-    	    									</small>
-											</span>
-                                        @endif
-	    							</h4>
+                                            @if (auth()->user()->id == $comment->user_id)
+                                                <a href="{{ route('comment.delete', ['id' => $comment->id, 'petitionId' => $petition->id]) }}">
+                                                    <small class="text-danger"><span class="fa fa-close"></span> Verwijder</small>
+                                                </a>
+                                            @endif
+                                        </small>
+                                    </span>
+                                </h4>
 
-	    							Ik ben een comment
-	  							</div>
-							</div>
-						</div>
+                                {{ $comment->comment }}
+                            </div>
+                        </div>
+                    </div>
                 @endforeach
 
                 @if ((int) count($comments) > 0)
@@ -86,35 +97,29 @@
             {{-- /Comment listing --}}
 
             {{-- Comment box --}}
-                @if (! auth()->check())
-                    <div class="alert alert-info" role="alert">
-                        <strong><span class="fa fa-info-circle" aria-hidden="true"></span> Info:</strong>
-                        You need to be logged in. To comment on this petition.
+                <form class="form-horizontal" action="{{ route('comment.store') }}" method="post">
+                    {{ csrf_field() }} {{-- CSRF FIELD --}}
+                    <input type="hidden" name="user_id" value="@if (auth()->check()) {{ auth()->user()->id }} @endif">
+                    <input type="hidden" name="petition" value="{{ $petition->id }}">
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <textarea @if (auth()->guest()) disabled @endif name="comment" class="form-control" rows="7" placeholder="@if (auth()->guest())You need to login for a comment @else Your reaction @endif"></textarea>
+                        </div>
                     </div>
-                @else
-                    <form class="form-horizontal" action="" method="post">
-                        {{ csrf_field() }} {{-- CSRF FIELD --}}
-                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
 
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <textarea name="comment" class="form-control" rows="7" placeholder="your reaction"></textarea>
-                            </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button @if (auth()->guest()) disabled @endif type="submit" class="btn btn-sm btn-success">
+                                <span class="fa fa-check" aria-hidden="true"></span> Comment
+                            </button>
+
+                            <button @if (auth()->guest()) disabled @endif type="reset" class="btn btn-sm btn-danger">
+                                <span class="fa fa-undo"></span> Reset
+                            </button>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <button type="submit" class="btn btn-sm btn-success">
-                                    <span class="fa fa-check" aria-hidden="true"></span> Comment
-                                </button>
-
-                                <button type="reset" class="btn btn-sm btn-danger">
-                                    <span class="fa fa-undo"></span> Reset
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                @endif
+                    </div>
+                </form>
             {{-- /Comment box --}}
         </div>
 

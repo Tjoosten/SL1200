@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AccountValidation;
+use App\User;
 use Illuminate\Http\Request;
 
 /**
@@ -24,6 +25,20 @@ class Account extends Controller
     }
 
     /**
+     * Get the profile for the given user.
+     *
+     * @param  int $userId The user id in the database.
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function user($userId)
+    {
+        $data['user'] = User::with(['organizations', 'followers'])->find($userId);
+        $data['title'] = $data['user']->name;
+
+        return view('account.profile-client', $data);
+    }
+
+    /**
      * Get the account information index.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -31,8 +46,7 @@ class Account extends Controller
     public function index()
     {
         $data['title'] = trans('account.title-index');
-
-        return view('', $data);
+        return view('account.profile', $data);
     }
 
     /**

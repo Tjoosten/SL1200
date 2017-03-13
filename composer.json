@@ -10,7 +10,8 @@
         "cybercog/laravel-ban": "^2.0",
         "laravel/framework": "5.4.*",
         "laravel/socialite": "^3.0",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "thomaswelton/laravel-gravatar": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
