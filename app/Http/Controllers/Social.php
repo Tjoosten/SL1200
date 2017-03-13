@@ -46,11 +46,21 @@ class Social extends Controller
     }
 
     /**
-     * @param  int $userId
+     * Unfollow the given user.
+     *
+     * @param  int $userId The user id in the database.
      * @return \Illuminate\Http\RedirectResponse
      */
     public function unfollow($userId)
     {
+        $user   = auth()->user();
+        $dbUser = User::find($userId);
+
+        if ($dbUser->followers()->detach($user->id)) {
+            session()->flash('class', 'alert-success');
+            session()->flash('message', trans('social.user-unfollow'));
+        }
+
         return back();
     }
 
