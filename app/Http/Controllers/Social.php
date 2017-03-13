@@ -2,27 +2,73 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\NewFollower;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
+/**
+ * Class Social
+ *
+ * @package App\Http\Controllers
+ */
 class Social extends Controller
 {
+    /**
+     * Social constructor.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('lang');
+        $this->middleware('auth');
+    }
+
+    /**
+     * Follow the given user.
+     *
+     * @param  int $userId The user id in the database.
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function follow($userId)
     {
+        $user   = auth()->user();
+        $dbUser = User::find($userId);
+
+        if ($dbUser->followers()->attach($user->id)) { // Authencated user >>> followed given user.
+            session()->flash('class', 'alert-success');
+            session()->flash('message', trans('social.user-follow'));
+        }
+
+        $dbUser->notify(new NewFollower($user));
         return back();
     }
 
+    /**
+     * @param  int $userId
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function unfollow($userId)
     {
         return back();
     }
 
-    public function blockUser()
+    /**
+     * @param  int $userId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function blockUser($userId)
     {
-
+        return back();
     }
 
-    public function unblockUser()
+    /**
+     * @param  int $userId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function unblockUser($userId)
     {
-
+        return back();
     }
 }

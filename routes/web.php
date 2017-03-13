@@ -33,3 +33,5 @@ Route::get('/comment/delete/{id}/{petitionId}', 'Comments@delete')->name('commen
 
 Route::get('/organisation/create', 'Organizations@create')->name('org.create');
 Route::post('/organization/save', 'Organizations@store')->name('org.store');
+
+Route::get('/social/follow/{id}', 'Social@follow')->name('social.follow');

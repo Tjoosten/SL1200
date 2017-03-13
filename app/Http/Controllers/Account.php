@@ -26,7 +26,7 @@ class Account extends Controller
 
     public function user($userId)
     {
-        $data['user'] = User::with(['organizations'])->find($userId);
+        $data['user'] = User::with(['organizations', 'followers'])->find($userId);
         $data['title'] = $data['user']->name;
 
         return view('account.profile-client', $data);

@@ -37,6 +37,17 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the followers for the authencated users.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'user_followers', 'user_id', 'follower_id')
+            ->withTimestamps();
+    }
+
+    /**
      * The status cache for the user.
      *
      * @return mixed
