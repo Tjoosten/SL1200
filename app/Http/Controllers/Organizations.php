@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrganizationValidation;
 use App\Organization;
+use App\User;
 use Illuminate\Http\Request;
 
 /**
@@ -33,10 +34,33 @@ class Organizations extends Controller
     }
 
     /**
+     * Invite method for the user.
+     *
+     * @param  int $userId The user id in the database.
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function sendInvite($userId)
+    {
+        $db['user'] = User::find($userId);
+
+        if ((int) count($db['user']) === 1) {
+
+            // Complete with flash session.
+            session()->flash('class', 'alert-success');
+            session()->flash('message', trans());
+        }
+
+        return back();
+    }
+
+    /**
+     * Display the envite page for a user invite in a organization.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function invite()
     {
+        $data['title'] = '';
         return view();
     }
 

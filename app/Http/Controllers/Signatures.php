@@ -15,6 +15,8 @@ class Signatures extends Controller
 {
     /**
      * Signatures constructor.
+     *
+     * @return void.
      */
     public function __construct()
     {
@@ -22,10 +24,25 @@ class Signatures extends Controller
     }
 
     /**
-     * @param SignatureValidation $input
+     * Sign a petition.
+     *
+     * @param  int $petitionId  The petition ind in the database.
+     * @param  SignatureValidation $input
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function sign(SignatureValidation $input)
+    public function sign(SignatureValidation $input, $petitionId)
     {
+        return back();
+    }
 
+    /**
+     * Export the siçgnatures for a petition to a external file.
+     *
+     * @param  int $petitionId The petition id in the database.
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function export($petitionId)
+    {
+        return back();
     }
 }

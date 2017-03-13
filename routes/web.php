@@ -11,7 +11,10 @@
 |
 */
 
+Route::get('/', 'HomeController@index')->name('index');
+
 Auth::routes();
+
 Route::get('auth/{provider}', 'Auth\SocialAuthencation@redirectToProvider')->name('auth.social');
 Route::get('auth/{provider}/callback', 'Auth\SocialAuthencation@handleProviderCallback')->name('auth.social.callback');
 
@@ -25,7 +28,8 @@ Route::get('/account', 'Account@index')->name('profile');
 Route::get('/account/settings', 'Account@accountSettings')->name('profile.settings');
 Route::get('/account/petitions', 'Petitions@user')->name('profile.petitions');
 
+Route::post('/comment', 'Comments@store')->name('comment.store');
+Route::get('/comment/delete/{id}/{petitionId}', 'Comments@delete')->name('comment.delete');
+
 Route::get('/organisation/create', 'Organizations@create')->name('org.create');
 Route::post('/organization/save', 'Organizations@store')->name('org.store');
-
-Route::get('/home', 'HomeController@index');

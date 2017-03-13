@@ -25,6 +25,17 @@ class Comment extends Model
      */
 	public function author()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Petition data for the comment.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function petition()
+    {
+        return $this->belongsToMany(Manifest::class)
+            ->withTimestamps();
     }
 }
