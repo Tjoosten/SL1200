@@ -69,24 +69,30 @@
 
                             <div class="row">
 
-                                <div class="col-md-6">
-                                    <div class="well well-sm">
-                                        <div class="media">
-                                            <a class="pull-left" href="#">
-                                                <img class="media-object img-responsive img-thumbnail" src="//placehold.it/80">
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading">John Doe</h4>
-                                                <p><span class="label label-info">10 petitions</span> <span class="label label-primary">83 followers</span></p>
+                                @foreach ($user->followers as $follower)
+                                    <div class="col-md-6">
+                                        <div class="well well-sm">
+                                            <div class="media">
+                                                <a class="pull-left" href="#">
+                                                    <img class="media-object img-responsive img-thumbnail" src="//placehold.it/80">
+                                                </a>
+                                                <div class="media-body">
+                                                    <h4 class="media-heading">{{ $follower->name }}</h4>
+                                                    <p>
+                                                        <span class="label label-info">10 petitions</span>
+                                                        <span class="label label-primary">{{ $follower->followers()->count() }} followers</span>
+                                                    </p>
 
-                                                <p>
-                                                    <a href="#" class="btn btn-xs btn-default"><span class="fa fa-chevron-circle-right"></span> View</a>
-                                                    <a href="#" class="btn btn-xs btn-danger"><span class="fa fa-heart-o"></span> Follow</a>
-                                                </p>
+                                                    <p>
+                                                        <a href="#" class="btn btn-xs btn-default"><span class="fa fa-chevron-circle-right"></span> View</a>
+                                                        <a href="#" class="btn btn-xs btn-danger"><span class="fa fa-heart-o"></span> Follow</a>
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endforeach
+
                             </div>
 
                         </div>

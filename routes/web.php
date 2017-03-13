@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomeController@index')->name('index');
+Route::get('/disclaimer', 'HomeController@disclaimer')->name('disclaimer');
 
 Auth::routes();
 

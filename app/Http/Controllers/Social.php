@@ -33,6 +33,8 @@ class Social extends Controller
      */
     public function follow($userId)
     {
+        // TODO: check is authencated user is not the same them param user.
+
         $user   = auth()->user();
         $dbUser = User::find($userId);
 
@@ -65,7 +67,9 @@ class Social extends Controller
     }
 
     /**
-     * @param  int $userId
+     * Block u user on the account.
+     *
+     * @param  int $userId The user id in the database.
      * @return \Illuminate\Http\RedirectResponse
      */
     public function blockUser($userId)
@@ -74,7 +78,9 @@ class Social extends Controller
     }
 
     /**
-     * @param  int $userId
+     * Unblock a user on the account.
+     *
+     * @param  int $userId The user id in the database.
      * @return \Illuminate\Http\RedirectResponse
      */
     public function unblockUser($userId)
